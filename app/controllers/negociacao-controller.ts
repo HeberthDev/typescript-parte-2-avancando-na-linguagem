@@ -13,15 +13,15 @@ export class NegociacaoController {
         this.inputData = document.querySelector( '#data' );
         this.inputQuantidade = document.querySelector( '#quantidade' );
         this.inputValor = document.querySelector( '#valor' );
-        this.negociacoesView.update();
+        this.negociacoesView.update(this.negociacoes);
     }
 
     adiciona(): void {
         const negociacao = this.criaNegociacao();
 
-        negociacao.data.setDate(12);
+        //negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
         this.negociacoes.adiciona( negociacao );
-        console.log( this.negociacoes.lista() );
+        this.negociacoesView.update(this.negociacoes);
         this.limparFormulario();
     }
 
