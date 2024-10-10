@@ -1,9 +1,6 @@
-export class MensaegemView {
-    private element: HTMLElement;
+import { View } from "./view.js";
 
-    constructor( selector: string ) {
-        this.element = document.querySelector(selector);
-    }
+export class MensaegemView extends View{
 
     template( model: string ): string {
         return `
@@ -13,6 +10,6 @@ export class MensaegemView {
 
     update( model: string ): void {
         const template = this.template(model);
-        this.element.innerHTML = template;
+        this.elemento.innerHTML = template;
     }
 }

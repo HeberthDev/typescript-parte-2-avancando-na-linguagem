@@ -1,7 +1,5 @@
-export class MensaegemView {
-    constructor(selector) {
-        this.element = document.querySelector(selector);
-    }
+import { View } from "./view.js";
+export class MensaegemView extends View {
     template(model) {
         return `
             <p class="alert alert-info"> ${model} </p>
@@ -9,6 +7,6 @@ export class MensaegemView {
     }
     update(model) {
         const template = this.template(model);
-        this.element.innerHTML = template;
+        this.elemento.innerHTML = template;
     }
 }
