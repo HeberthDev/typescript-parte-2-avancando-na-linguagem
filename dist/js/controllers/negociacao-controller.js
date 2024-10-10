@@ -1,3 +1,4 @@
+import { MensaegemView } from "../views/mensagem-view.js";
 import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
@@ -5,6 +6,7 @@ export class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView ');
+        this.mensagemView = new MensaegemView('#mensagemView');
         this.inputData = document.querySelector('#data');
         this.inputQuantidade = document.querySelector('#quantidade');
         this.inputValor = document.querySelector('#valor');
@@ -15,6 +17,7 @@ export class NegociacaoController {
         //negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
         this.negociacoes.adiciona(negociacao);
         this.negociacoesView.update(this.negociacoes);
+        this.mensagemView.update('Negociação adicionada com sucesso');
         this.limparFormulario();
     }
     criaNegociacao() {
