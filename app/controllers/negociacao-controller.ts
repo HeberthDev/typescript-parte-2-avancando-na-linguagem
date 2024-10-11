@@ -18,17 +18,15 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
-    adiciona(): void {
+    public adiciona(): void {
         const negociacao = this.criaNegociacao();
-
         //negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
         this.negociacoes.adiciona( negociacao );
-        this.negociacoesView.update(this.negociacoes);
-        this.mensagemView.update( 'Negociação adicionada com sucesso' );
         this.limparFormulario();
+        this.atualizaView();
     }
 
-    criaNegociacao(): Negociacao {
+    private criaNegociacao(): Negociacao {
         const exp = /-/g;
         const date = new Date( this.inputData.value.replace( exp, ',' ) );
         const quantidade = parseInt( this.inputQuantidade.value );
@@ -41,11 +39,16 @@ export class NegociacaoController {
         );
     }
 
-    limparFormulario(): void {
+    private limparFormulario(): void {
         this.inputData.value = '';
         this.inputQuantidade.value = '';
         this.inputValor.value = '';
 
         this.inputData.focus();
+    }
+
+    private atualizaView(): void {
+        this.negociacoesView.update(this.negociacoes);
+        this.mensagemView.update( 'Negociação adicionada com sucesso' );
     }
 }
