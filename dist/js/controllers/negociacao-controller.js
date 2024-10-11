@@ -15,6 +15,10 @@ export class NegociacaoController {
     adiciona() {
         const negociacao = this.criaNegociacao();
         //negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
+        if (negociacao.data.getDay() === 0 || negociacao.data.getDay() === 6) {
+            this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
+            return;
+        }
         this.negociacoes.adiciona(negociacao);
         this.limparFormulario();
         this.atualizaView();
