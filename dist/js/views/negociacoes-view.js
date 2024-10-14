@@ -22,6 +22,7 @@ export class NegociacoesView extends View {
 
                                 <td> ${negociacao.valor} </td>
                             </tr>
+                            <script> alert('Oi') </script>
                         `;
         }).join('')}
                 </tbody>
