@@ -14,13 +14,7 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
-        /*
-            const negociacaoTemporaria = new Negociacao( null, 0, 0 ); Não precisa mais criar essa instância da classe porque pelo método ter se tornado STATIC dentro da classe, é preciso apenas chamar a classe direto e já terá acesso.
-        */
         const negociacao = Negociacao.criaDe(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
-        /*
-            negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
-        */
         if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update('Apenas negociações em dias úteis são aceitas');
             return;
