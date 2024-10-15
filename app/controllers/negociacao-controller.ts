@@ -13,9 +13,12 @@ export class NegociacaoController {
     private mensagemView = new MensaegemView( '#mensagemView' );
 
     constructor() {
-        this.inputData = document.querySelector( '#data' );
-        this.inputQuantidade = document.querySelector( '#quantidade' );
-        this.inputValor = document.querySelector( '#valor' );
+        /*
+            Numa situação que uma determinada variável pode ser um determinado tipo ou NULL ativamos a opção de "strictNullChecks" no arquivo TSCONFIG e colocamos de forma explícita "as HTMLInputElement" como forma de assegurar que será desse tipo. Apesar da possibilidade de ser NULL também e talvez quebrar o código.
+        */
+        this.inputData = document.querySelector( '#data' ) as HTMLInputElement;
+        this.inputQuantidade = document.querySelector( '#quantidade' ) as HTMLInputElement;
+        this.inputValor = document.querySelector( '#valor' ) as HTMLInputElement;
         this.negociacoesView.update(this.negociacoes);
     }
 
