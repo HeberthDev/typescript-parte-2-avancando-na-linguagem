@@ -9,19 +9,32 @@ export class NegociacaoController {
     private inputQuantidade: HTMLInputElement;
     private inputValor: HTMLInputElement;
     private negociacoes = new Negociacoes();
-    private negociacoesView = new NegociacoesView( '#negociacoesView ');
+    private negociacoesView = new NegociacoesView( '#negociacoesView', true );
     private mensagemView = new MensaegemView( '#mensagemView' );
 
     constructor() {
-        this.inputData = document.querySelector( '#data' );
-        this.inputQuantidade = document.querySelector( '#quantidade' );
-        this.inputValor = document.querySelector( '#valor' );
+        /*
+            Numa situação que uma determinada variável pode ser um determinado tipo ou NULL ativamos a opção de "strictNullChecks" no arquivo TSCONFIG e colocamos de forma explícita "as HTMLInputElement" como forma de assegurar que será desse tipo. Apesar da possibilidade de ser NULL também e talvez quebrar o código.
+        */
+        this.inputData = document.querySelector( '#data' ) as HTMLInputElement;
+        this.inputQuantidade = document.querySelector( '#quantidade' ) as HTMLInputElement;
+        this.inputValor = document.querySelector( '#valor' ) as HTMLInputElement;
         this.negociacoesView.update(this.negociacoes);
     }
 
     public adiciona(): void {
-        const negociacao = this.criaNegociacao();
-        //negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
+        /*
+            const negociacaoTemporaria = new Negociacao( null, 0, 0 ); Não precisa mais criar essa instância da classe porque pelo método ter se tornado STATIC dentro da classe, é preciso apenas chamar a classe direto e já terá acesso. 
+        */
+        const negociacao = Negociacao.criaDe(
+            this.inputData.value,
+            this.inputQuantidade.value,
+            this.inputValor.value
+        );
+
+        /*
+            negociacao.data.setDate(12); Exemplo de tentativa de modificação forçada do valor de data
+        */
         if( !this.ehDiaUtil( negociacao.data ) ) {
             this.mensagemView.update( 'Apenas negociações em dias úteis são aceitas' );
             return;
@@ -34,19 +47,6 @@ export class NegociacaoController {
 
     private ehDiaUtil( data: Date ) {
         return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
-    }
-
-    private criaNegociacao(): Negociacao {
-        const exp = /-/g;
-        const date = new Date( this.inputData.value.replace( exp, ',' ) );
-        const quantidade = parseInt( this.inputQuantidade.value );
-        const valor = parseFloat( this.inputValor.value );
-
-        return new Negociacao(
-            date,
-            quantidade,
-            valor,
-        );
     }
 
     private limparFormulario(): void {
